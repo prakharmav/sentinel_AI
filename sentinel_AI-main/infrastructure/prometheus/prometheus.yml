@@ -1,0 +1,14 @@
+# ============================================================
+# SentinelAI — Prometheus Configuration File
+# Scrapes backend metrics endpoints at sub-second speeds.
+# ============================================================
+
+global:
+  scrape_interval: 15s     # Scrape targets every 15 seconds
+  evaluation_interval: 15s # Evaluate alert rules every 15 seconds
+
+scrape_configs:
+  - job_name: 'sentinelai-backend'
+    metrics_path: '/metrics'
+    static_configs:
+      - targets: ['backend:8000'] # Resolves to backend container in docker-compose

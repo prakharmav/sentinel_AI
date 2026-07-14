@@ -1,0 +1,29 @@
+fastapi>=0.111.0,<0.112.0
+uvicorn[standard]>=0.30.0,<0.31.0
+pydantic[email]>=2.7.0,<2.8.0
+pydantic-settings>=2.3.0,<2.4.0
+sqlalchemy>=2.0.0,<2.1.0
+psycopg2-binary>=2.9.0,<2.10.0
+neo4j>=5.21.0,<5.22.0
+redis>=5.0.0,<5.1.0
+google-generativeai==0.8.3
+pyjwt[crypto]>=2.8.0,<2.9.0
+passlib[bcrypt]>=1.7.4,<1.8.0
+python-multipart>=0.0.9,<0.0.10
+httpx>=0.27.0,<0.28.0
+python-jose[cryptography]>=3.3.0,<3.4.0
+websockets>=12.0,<13.0
+prometheus-client>=0.20.0,<0.21.0
+opentelemetry-api>=1.25.0,<1.26.0
+opentelemetry-sdk>=1.25.0,<1.26.0
+opentelemetry-instrumentation-fastapi>=0.46b0,<0.47b0
+# ── LangGraph Multi-Agent Orchestration ──
+langgraph>=0.2.0
+langchain-core>=0.2.0
+langchain-google-genai==2.0.10
+# ── Document parsing ──
+pypdf>=4.2.0
+# ── Voice AI Text-to-Speech ──
+gTTS>=2.5.0
+# ── Professional PDF Report Building ──
+reportlab>=4.1.0

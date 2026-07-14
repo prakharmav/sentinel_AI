@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Crime Analytics &amp; Intelligence | SentinelAI</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-fixed": "#d6e3ff",
+                        "on-tertiary-fixed-variant": "#793100",
+                        "on-error-container": "#ffdad6",
+                        "tertiary": "#ffb691",
+                        "on-surface": "#e0e2ed",
+                        "surface-variant": "#31353d",
+                        "surface-container-high": "#262a32",
+                        "on-secondary-fixed": "#1a1b1f",
+                        "outline-variant": "#414754",
+                        "inverse-surface": "#e0e2ed",
+                        "on-tertiary": "#552000",
+                        "on-surface-variant": "#c0c6d6",
+                        "tertiary-fixed": "#ffdbcb",
+                        "tertiary-container": "#eb6a12",
+                        "background": "#10131b",
+                        "secondary-container": "#46464b",
+                        "on-secondary-container": "#b5b4ba",
+                        "secondary-fixed-dim": "#c6c6cb",
+                        "on-primary": "#003064",
+                        "surface-dim": "#10131b",
+                        "outline": "#8b91a0",
+                        "on-tertiary-fixed": "#341100",
+                        "tertiary-fixed-dim": "#ffb691",
+                        "surface-container-highest": "#31353d",
+                        "primary-fixed-dim": "#aac7ff",
+                        "on-background": "#e0e2ed",
+                        "surface-bright": "#363941",
+                        "surface-container": "#1c2027",
+                        "on-primary-container": "#002957",
+                        "secondary-fixed": "#e3e2e7",
+                        "primary-container": "#3e90ff",
+                        "primary": "#aac7ff",
+                        "surface-tint": "#aac7ff",
+                        "on-secondary-fixed-variant": "#46464b",
+                        "inverse-on-surface": "#2d3038",
+                        "error-container": "#93000a",
+                        "secondary": "#c6c6cb",
+                        "surface-container-lowest": "#0b0e15",
+                        "on-secondary": "#2f3034",
+                        "on-primary-fixed": "#001b3e",
+                        "surface": "#10131b",
+                        "on-tertiary-container": "#4a1b00",
+                        "on-primary-fixed-variant": "#00468d",
+                        "on-error": "#690005",
+                        "surface-container-low": "#181c23",
+                        "inverse-primary": "#005db8",
+                        "error": "#ffb4ab",
+                        "chart-blue": "#0A84FF",
+                        "chart-teal": "#30D5C8",
+                        "chart-red": "#FF3B30",
+                        "chart-yellow": "#FFCC00",
+                        "chart-purple": "#AF52DE"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xl": "32px",
+                        "sm": "8px",
+                        "2xl": "48px",
+                        "3xl": "64px",
+                        "md": "16px",
+                        "xs": "4px",
+                        "gutter": "16px",
+                        "lg": "24px",
+                        "base": "4px",
+                        "margin": "24px"
+                    },
+                    "fontFamily": {
+                        "display-lg": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "label-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "body-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "500" }],
+                        "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "label-sm": ["11px", { "lineHeight": "14px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "headline-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { background-color: #010101; color: theme('colors.on-surface'); font-family: 'Inter', sans-serif; }
+        .glass-panel { background: #1C1C1E; border: 1px solid rgba(255, 255, 255, 0.08); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); }
+        .glass-panel-hover:hover { border-color: rgba(255, 255, 255, 0.2); }
+        .glass-panel-blur { background: rgba(28, 28, 30, 0.7); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.12); }
+        .ai-border-glow { position: relative; }
+        .ai-border-glow::before { content: ''; position: absolute; top: -1px; left: -1px; right: -1px; bottom: -1px; background: linear-gradient(45deg, #0A84FF, #30D5C8); z-index: -1; border-radius: inherit; opacity: 0.3; }
+        
+        /* Material Symbols Outlined Customization */
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .material-symbols-outlined.fill { font-variation-settings: 'FILL' 1; }
+    </style>
+</head>
+<body class="flex flex-col h-screen overflow-hidden">
+<!-- TopNavBar -->
+<header class="bg-surface-container dark:bg-surface-container docked full-width top-0 border-b border-outline-variant/10 backdrop-blur-xl shadow-sm fixed top-0 w-full z-50 flex justify-between items-center px-lg h-16">
+<div class="flex items-center gap-md">
+<span class="font-headline-md text-headline-md font-bold text-primary dark:text-primary">SentinelAI</span>
+<!-- Search Bar (on_left) -->
+<div class="relative hidden md:block">
+<span class="material-symbols-outlined absolute left-sm top-1/2 -translate-y-1/2 text-on-surface-variant font-label-md">search</span>
+<input class="bg-[#0A0A0A] border border-outline-variant/20 rounded-md pl-xl pr-sm py-sm text-body-md text-on-surface focus:border-primary focus:ring-2 focus:ring-primary/20 w-64 placeholder-on-surface-variant/50" placeholder="Global Search..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-md text-on-surface-variant">
+<button class="hover:bg-white/5 transition-colors p-sm rounded-full cursor-pointer active:scale-95">
+<span class="material-symbols-outlined font-headline-md">notifications</span>
+</button>
+<button class="hover:bg-white/5 transition-colors p-sm rounded-full cursor-pointer active:scale-95">
+<span class="material-symbols-outlined font-headline-md">settings</span>
+</button>
+<button class="hover:bg-white/5 transition-colors p-sm rounded-full cursor-pointer active:scale-95">
+<span class="material-symbols-outlined font-headline-md">help</span>
+</button>
+<div class="w-8 h-8 rounded-full bg-surface-variant overflow-hidden border border-outline-variant/20 ml-sm cursor-pointer hover:border-primary transition-colors">
+<img alt="Operator Profile" class="w-full h-full object-cover" data-alt="A detailed headshot of a female security operator in a dimly lit command center. She is wearing a dark, modern uniform with subtle blue glowing accents. The lighting is low-key, professional, and serious. High quality, photorealistic, cinematic lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCzAjWyFQSh6LgfEIqBzgDn7HKxkR1q1xcCZeGBCqWOtM2QXuxVHUhtG6rtQDUZnWKBxJ014oRhW2ypcFNxI9YH6WYVj3UdvM4P66hWR5dvOm-e4I_sq-3qiiJc0yhK30-M8luJd618lpf_BBV2BgmOTsomtWzdZ6O4RPDzUF3BNbnF0hJ1l9LHdIhPdMmEkP5MHH2IwG7U_ltgB4KKKeECim3Ku9cWSfSy0sQDotv5rCt9MuCX5zsHXlZ1mGT403kbum0JmfSJI9w"/>
+</div>
+</div>
+</header>
+<div class="flex flex-1 pt-16 overflow-hidden">
+<!-- SideNavBar -->
+<nav class="bg-surface-container-low dark:bg-surface-container-low docked left-0 h-full w-64 border-r border-outline-variant/10 shadow-lg fixed left-0 top-16 h-[calc(100vh-64px)] z-40 flex flex-col p-md hidden md:flex">
+<!-- Header Context -->
+<div class="mb-lg flex items-center gap-md p-sm">
+<div class="w-10 h-10 rounded-lg bg-surface-variant overflow-hidden border border-outline-variant/20">
+<img alt="System Status" class="w-full h-full object-cover" data-alt="A glowing blue orb representing an artificial intelligence system core. It sits against a stark black background, pulsing with faint digital data streams. The mood is high-tech, precise, and authoritative." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBHNl06CJlAkxEu_798dBtUrIWEGTnvzmUL66qLK0S1J3ByVjo21oI8Dph_ZMxcb7-HHdkB8WmJS8b0DWVA7vFLhNksXEsKkbaCLIEhTtIqBmEBX2yKo8DPfu9I7d4g4sGeHc14j1DR2cAtDGkx1wpNZJMyN1XcvcL2wP3RT96vftElwKwRwpF4b1OK28Ca78Eqay3h5sGSjTaXH0ZHqqi2fX2P1sH_ZfLXq8kPhVZT23B5JIe1olarHGMRaFtFpAmV-l8WQhx3VTw"/>
+</div>
+<div>
+<div class="font-label-md text-label-md text-on-surface font-semibold">Command Center</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant">Active Ops</div>
+</div>
+</div>
+<ul class="flex flex-col gap-sm flex-1">
+<li>
+<a class="flex items-center gap-md p-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-variant/30 transition-all cursor-pointer scale-100 active:scale-98 rounded-lg" href="#">
+<span class="material-symbols-outlined">query_stats</span>
+<span class="font-label-md text-label-md">Intelligence</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-md p-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-variant/30 transition-all cursor-pointer scale-100 active:scale-98 rounded-lg" href="#">
+<span class="material-symbols-outlined">map</span>
+<span class="font-label-md text-label-md">Tactical Map</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-md p-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-variant/30 transition-all cursor-pointer scale-100 active:scale-98 rounded-lg" href="#">
+<span class="material-symbols-outlined">folder_shared</span>
+<span class="font-label-md text-label-md">Case Management</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-md p-sm bg-primary-container text-on-primary-container rounded-lg font-bold cursor-pointer scale-100 active:scale-98 transition-transform" href="#">
+<span class="material-symbols-outlined fill">description</span>
+<span class="font-label-md text-label-md">Reports</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-md p-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-variant/30 transition-all cursor-pointer scale-100 active:scale-98 rounded-lg" href="#">
+<span class="material-symbols-outlined">history</span>
+<span class="font-label-md text-label-md">Audit Logs</span>
+</a>
+</li>
+</ul>
+<div class="mt-auto pt-md border-t border-outline-variant/10">
+<a class="flex items-center gap-md p-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-variant/30 transition-all cursor-pointer scale-100 active:scale-98 rounded-lg" href="#">
+<span class="material-symbols-outlined">contact_support</span>
+<span class="font-label-md text-label-md">Support</span>
+</a>
+</div>
+</nav>
+<!-- Main Content -->
+<main class="flex-1 md:ml-64 overflow-y-auto p-md md:p-lg bg-surface dark:bg-surface">
+<!-- 1. Header & Filters -->
+<div class="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-lg gap-md">
+<div>
+<h1 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface mb-xs">Crime Analytics &amp; Intelligence</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">Real-time threat assessment and predictive modeling across all sectors.</p>
+</div>
+<div class="flex flex-wrap items-center gap-sm">
+<!-- Date Range Picker Mock -->
+<div class="flex items-center bg-[#0A0A0A] border border-outline-variant/20 rounded-md px-sm py-sm">
+<span class="material-symbols-outlined text-on-surface-variant text-sm mr-xs">calendar_today</span>
+<span class="font-label-md text-label-md text-on-surface">Last 30 Days</span>
+<span class="material-symbols-outlined text-on-surface-variant text-sm ml-xs">arrow_drop_down</span>
+</div>
+<!-- Filter: District -->
+<div class="flex items-center bg-[#0A0A0A] border border-outline-variant/20 rounded-md px-sm py-sm">
+<span class="material-symbols-outlined text-on-surface-variant text-sm mr-xs">location_on</span>
+<span class="font-label-md text-label-md text-on-surface">All Districts</span>
+<span class="material-symbols-outlined text-on-surface-variant text-sm ml-xs">arrow_drop_down</span>
+</div>
+<!-- Filter: Crime Type -->
+<div class="flex items-center bg-[#0A0A0A] border border-outline-variant/20 rounded-md px-sm py-sm">
+<span class="material-symbols-outlined text-on-surface-variant text-sm mr-xs">category</span>
+<span class="font-label-md text-label-md text-on-surface">All Types</span>
+<span class="material-symbols-outlined text-on-surface-variant text-sm ml-xs">arrow_drop_down</span>
+</div>
+<!-- Export Button -->
+<button class="bg-primary text-on-primary hover:bg-primary-fixed-dim transition-colors rounded-md px-md py-sm flex items-center gap-xs font-label-md text-label-md shadow-sm">
+<span class="material-symbols-outlined text-sm">download</span>
+                        Export
+                    </button>
+</div>
+</div>
+<!-- 2. KPI Ribbon -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-md mb-lg">
+<!-- KPI 1: Total Incidents -->
+<div class="glass-panel glass-panel-hover rounded-xl p-md flex flex-col justify-between">
+<div class="flex justify-between items-start mb-sm">
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Total Incidents</span>
+<span class="material-symbols-outlined text-chart-blue bg-chart-blue/10 p-xs rounded-md">warning</span>
+</div>
+<div class="flex items-end gap-sm">
+<span class="font-display-lg text-display-lg text-on-surface">1,248</span>
+<span class="font-label-sm text-label-sm text-error bg-error/10 px-xs py-[2px] rounded mb-xs flex items-center">
+<span class="material-symbols-outlined text-[14px]">trending_up</span> +5.2%
+                        </span>
+</div>
+</div>
+<!-- KPI 2: Clearance Rate -->
+<div class="glass-panel glass-panel-hover rounded-xl p-md flex flex-col justify-between">
+<div class="flex justify-between items-start mb-sm">
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Clearance Rate</span>
+<span class="material-symbols-outlined text-chart-teal bg-chart-teal/10 p-xs rounded-md">check_circle</span>
+</div>
+<div class="flex items-end gap-sm">
+<span class="font-display-lg text-display-lg text-on-surface">68.4%</span>
+<span class="font-label-sm text-label-sm text-chart-teal bg-chart-teal/10 px-xs py-[2px] rounded mb-xs flex items-center">
+<span class="material-symbols-outlined text-[14px]">trending_up</span> +2.1%
+                        </span>
+</div>
+</div>
+<!-- KPI 3: Avg Response Time -->
+<div class="glass-panel glass-panel-hover rounded-xl p-md flex flex-col justify-between">
+<div class="flex justify-between items-start mb-sm">
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Avg Response Time</span>
+<span class="material-symbols-outlined text-chart-yellow bg-chart-yellow/10 p-xs rounded-md">timer</span>
+</div>
+<div class="flex items-end gap-sm">
+<span class="font-display-lg text-display-lg text-on-surface">04:12</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant mb-xs">min:sec</span>
+</div>
+</div>
+<!-- KPI 4: AI Predicted Risk -->
+<div class="glass-panel glass-panel-hover rounded-xl p-md flex flex-col justify-between ai-border-glow">
+<div class="flex justify-between items-start mb-sm">
+<span class="font-label-md text-label-md text-primary uppercase tracking-wider font-bold">AI Risk Level</span>
+<span class="material-symbols-outlined text-error bg-error/10 p-xs rounded-md">policy</span>
+</div>
+<div class="flex items-end gap-sm">
+<span class="font-display-lg text-display-lg text-error">ELEVATED</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant mb-xs">Sector 4</span>
+</div>
+</div>
+</div>
+<!-- Dashboard Grid Layout -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-md">
+<!-- 3. Hero Section: Predictive Heatmap -->
+<div class="lg:col-span-8 glass-panel rounded-xl flex flex-col overflow-hidden min-h-[400px]">
+<div class="p-md border-b border-outline-variant/10 flex justify-between items-center bg-surface-container-high">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-on-surface-variant">explore</span>
+<h2 class="font-headline-md text-headline-md text-on-surface">Tactical Jurisdiction Heatmap</h2>
+</div>
+<div class="flex gap-xs">
+<button class="bg-[#0A0A0A] border border-outline-variant/20 rounded px-sm py-xs font-label-sm text-label-sm text-on-surface-variant hover:text-on-surface">Live</button>
+<button class="bg-primary/20 border border-primary/50 text-primary rounded px-sm py-xs font-label-sm text-label-sm">AI Predicted</button>
+</div>
+</div>
+<div class="flex-1 relative bg-[#050505]">
+<!-- Map Placeholder -->
+<div class="absolute inset-0 bg-cover bg-center" data-alt="A highly detailed, dark-mode digital map of a sprawling metropolis viewed from above. The map features neon-blue glowing streets and distinct, intense red thermal hotspots indicating areas of high activity. The aesthetic is cybernetic, military-grade, and sophisticated." data-location="Metropolis" style="background-image: url('https://www.gstatic.com/labs-code/stitch/stitch-placeholder-300x300.svg')"></div>
+<!-- Map Overlay UI -->
+<div class="absolute bottom-md right-md glass-panel-blur p-sm rounded-lg flex flex-col gap-xs">
+<div class="font-label-sm text-label-sm text-on-surface-variant mb-xs">Risk Density</div>
+<div class="flex items-center gap-sm">
+<span class="text-xs text-on-surface-variant">Low</span>
+<div class="w-24 h-2 rounded bg-gradient-to-r from-chart-blue via-chart-yellow to-error"></div>
+<span class="text-xs text-on-surface-variant">High</span>
+</div>
+</div>
+</div>
+</div>
+<!-- 4. Data Grid: AI Intelligence Insights -->
+<div class="lg:col-span-4 glass-panel rounded-xl flex flex-col ai-border-glow">
+<div class="p-md border-b border-outline-variant/10 bg-surface-container-high flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary">smart_toy</span>
+<h2 class="font-headline-md text-headline-md text-on-surface">SentinelAI Insights</h2>
+</div>
+<div class="p-md flex-1 flex flex-col gap-md overflow-y-auto">
+<div class="bg-[#0A0A0A] border border-outline-variant/20 rounded-lg p-sm flex gap-sm">
+<span class="material-symbols-outlined text-error mt-xs">trending_up</span>
+<div>
+<div class="font-label-md text-label-md text-on-surface mb-xs">Emerging Pattern Detected</div>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm">15% spike in vehicle thefts predicted in Sector 4 over the next 48 hours based on historical weekend data and recent local event schedules.</p>
+</div>
+</div>
+<div class="bg-[#0A0A0A] border border-outline-variant/20 rounded-lg p-sm flex gap-sm">
+<span class="material-symbols-outlined text-chart-teal mt-xs">verified</span>
+<div>
+<div class="font-label-md text-label-md text-on-surface mb-xs">Resource Optimization</div>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm">Re-routing Unit Alpha-7 to District North could reduce average response times by an estimated 1.2 minutes during peak hours.</p>
+</div>
+</div>
+<div class="bg-[#0A0A0A] border border-outline-variant/20 rounded-lg p-sm flex gap-sm">
+<span class="material-symbols-outlined text-chart-yellow mt-xs">warning_amber</span>
+<div>
+<div class="font-label-md text-label-md text-on-surface mb-xs">Anomaly Alert</div>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm">Unusual cluster of noise complaints in Residential Zone B. Cross-referencing with local permit databases suggests unauthorized gatherings.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Data Grid: Crime Trends (Line Chart) -->
+<div class="lg:col-span-8 glass-panel rounded-xl flex flex-col min-h-[300px]">
+<div class="p-md border-b border-outline-variant/10 bg-surface-container-high flex justify-between items-center">
+<h2 class="font-headline-md text-headline-md text-on-surface">Crime Trends vs Predictions</h2>
+<span class="material-symbols-outlined text-on-surface-variant">show_chart</span>
+</div>
+<div class="p-md flex-1 relative">
+<canvas id="crimeTrendsChart"></canvas>
+</div>
+</div>
+<!-- Data Grid: District Comparison (Bar Chart) & Crime Type (Donut) -->
+<div class="lg:col-span-4 flex flex-col gap-md">
+<!-- District Comparison -->
+<div class="glass-panel rounded-xl flex flex-col flex-1 min-h-[200px]">
+<div class="p-md border-b border-outline-variant/10 bg-surface-container-high">
+<h2 class="font-headline-md text-headline-md text-on-surface">District Breakdown</h2>
+</div>
+<div class="p-md flex-1 relative">
+<canvas id="districtBarChart"></canvas>
+</div>
+</div>
+<!-- Crime Type Distribution -->
+<div class="glass-panel rounded-xl flex flex-col flex-1 min-h-[200px]">
+<div class="p-md border-b border-outline-variant/10 bg-surface-container-high">
+<h2 class="font-headline-md text-headline-md text-on-surface">Incident Typology</h2>
+</div>
+<div class="p-md flex-1 relative flex justify-center items-center">
+<canvas id="crimeTypeChart"></canvas>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+<!-- Chart.js Initialization -->
+<script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Common Chart Options for Dark Theme
+            Chart.defaults.color = '#c0c6d6'; // on-surface-variant
+            Chart.defaults.font.family = 'Inter';
+            const gridColor = 'rgba(255, 255, 255, 0.05)';
+
+            // 1. Crime Trends (Line Chart)
+            const ctxTrends = document.getElementById('crimeTrendsChart').getContext('2d');
+            new Chart(ctxTrends, {
+                type: 'line',
+                data: {
+                    labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                    datasets: [
+                        {
+                            label: 'Actual Incidents',
+                            data: [45, 52, 38, 65, 80, 95, 88],
+                            borderColor: '#0A84FF', // chart-blue
+                            backgroundColor: 'rgba(10, 132, 255, 0.1)',
+                            borderWidth: 2,
+                            tension: 0.4,
+                            fill: true,
+                            pointRadius: 4,
+                            pointBackgroundColor: '#0A84FF'
+                        },
+                        {
+                            label: 'AI Prediction',
+                            data: [40, 50, 42, 60, 85, 100, 90],
+                            borderColor: '#AF52DE', // chart-purple
+                            borderWidth: 2,
+                            borderDash: [5, 5],
+                            tension: 0.4,
+                            pointRadius: 0
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'top', align: 'end', labels: { boxWidth: 12, usePointStyle: true } }
+                    },
+                    scales: {
+                        y: { grid: { color: gridColor }, beginAtZero: true },
+                        x: { grid: { display: false } }
+                    }
+                }
+            });
+
+            // 2. District Breakdown (Horizontal Bar)
+            const ctxDistrict = document.getElementById('districtBarChart').getContext('2d');
+            new Chart(ctxDistrict, {
+                type: 'bar',
+                data: {
+                    labels: ['North', 'South', 'East', 'West', 'Central'],
+                    datasets: [{
+                        label: 'Incidents',
+                        data: [120, 190, 85, 140, 220],
+                        backgroundColor: '#30D5C8', // chart-teal
+                        borderRadius: 4
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        x: { grid: { color: gridColor }, beginAtZero: true },
+                        y: { grid: { display: false } }
+                    }
+                }
+            });
+
+            // 3. Crime Type (Doughnut)
+            const ctxType = document.getElementById('crimeTypeChart').getContext('2d');
+            new Chart(ctxType, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Theft', 'Assault', 'Burglary', 'Vandalism', 'Other'],
+                    datasets: [{
+                        data: [40, 25, 15, 10, 10],
+                        backgroundColor: [
+                            '#0A84FF', // chart-blue
+                            '#FF3B30', // chart-red
+                            '#FFCC00', // chart-yellow
+                            '#AF52DE', // chart-purple
+                            '#414754'  // outline-variant
+                        ],
+                        borderWidth: 0,
+                        hoverOffset: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '70%',
+                    plugins: {
+                        legend: { position: 'right', labels: { boxWidth: 10, usePointStyle: true, font: { size: 11 } } }
+                    }
+                }
+            });
+        });
+    </script>
+</body></html>

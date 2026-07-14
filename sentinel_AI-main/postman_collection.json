@@ -1,0 +1,145 @@
+{
+  "info": {
+    "name": "SentinelAI API Collection",
+    "description": "Postman collection for SentinelAI threat intelligence backend REST and WebSocket APIs.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Authentication",
+      "item": [
+        {
+          "name": "Secure Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"analyst@sentinelai.io\",\n  \"password\": \"secure_password_123\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8000/api/v1/auth/login",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8000",
+              "path": ["api", "v1", "auth", "login"]
+            },
+            "description": "Authenticates analyst and emits JWT access token."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Crimes & Investigations",
+      "item": [
+        {
+          "name": "List Active Crimes",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{jwt_token}}"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:8000/api/v1/crimes/?skip=0&limit=10",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8000",
+              "path": ["api", "v1", "crimes"],
+              "query": [
+                {
+                  "key": "skip",
+                  "value": "0"
+                },
+                {
+                  "key": "limit",
+                  "value": "10"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Copilot & AI System",
+      "item": [
+        {
+          "name": "Case Timeline Feed",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{jwt_token}}"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:8000/api/v1/copilot/timeline/00000000-0000-0000-0000-000000000501",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8000",
+              "path": ["api", "v1", "copilot", "timeline", "00000000-0000-0000-0000-000000000501"]
+            }
+          }
+        },
+        {
+          "name": "RAG Upload File",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{jwt_token}}"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "src": []
+                }
+              ]
+            },
+            "url": {
+              "raw": "http://localhost:8000/api/v1/upload/secure-upload",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8000",
+              "path": ["api", "v1", "upload", "secure-upload"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "WebSockets Connections",
+      "item": [
+        {
+          "name": "Real-time Alerts Broadcast",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "ws://localhost:8000/ws/alerts",
+              "protocol": "ws",
+              "host": ["localhost"],
+              "port": "8000",
+              "path": ["ws", "alerts"]
+            },
+            "description": "Establish a socket link. Send heartbeat pings: {\"type\": \"ping\"}."
+          }
+        }
+      ]
+    }
+  ]
+}

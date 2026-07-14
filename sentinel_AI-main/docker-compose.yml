@@ -1,0 +1,108 @@
+version: '3.8'
+
+services:
+  # ==========================================
+  # backend: FastAPI Service
+  # ==========================================
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_HOST=postgres
+      - DATABASE_PORT=5432
+      - DATABASE_USER=postgres
+      - DATABASE_PASSWORD=secure_postgres_password
+      - DATABASE_NAME=sentinelai
+      - NEO4J_URI=bolt://neo4j:7687
+      - NEO4J_USER=neo4j
+      - NEO4J_PASSWORD=secure_neo4j_password
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+      - ENVIRONMENT=development
+    depends_on:
+      - postgres
+      - neo4j
+      - redis
+    networks:
+      - sentinel_net
+
+  # ==========================================
+  # frontend: Next.js 15 App
+  # ==========================================
+  frontend:
+    build:
+      context: ./frontend_v2
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - NEXT_PUBLIC_API_URL=http://localhost:8000
+      - NEXT_PUBLIC_WS_URL=ws://localhost:8000
+      - NEXT_PUBLIC_ENV=production
+      - NODE_ENV=production
+    depends_on:
+      - backend
+    networks:
+      - sentinel_net
+
+  # ==========================================
+  # postgres: Primary Relational Store
+  # ==========================================
+  postgres:
+    image: postgis/postgis:16-3.4-alpine
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=secure_postgres_password
+      - POSTGRES_DB=sentinelai
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - sentinel_net
+
+  # ==========================================
+  # neo4j: Threat Graph Network Database
+  # ==========================================
+  neo4j:
+    image: neo4j:5.21-enterprise
+    ports:
+      - "7474:7474"  # HTTP Console
+      - "7687:7687"  # Bolt API
+    environment:
+      - NEO4J_AUTH=neo4j/secure_neo4j_password
+      - NEO4J_ACCEPT_LICENSE_AGREEMENT=yes
+      - NEO4J_apoc_export_file_enabled=true
+      - NEO4J_apoc_import_file_enabled=true
+      - NEO4J_apoc_import_file_use__neo4j__config=true
+    volumes:
+      - neo4jdata:/data
+      - neo4jlogs:/logs
+    networks:
+      - sentinel_net
+
+  # ==========================================
+  # redis: Caching & Rate Limiting
+  # ==========================================
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redisdata:/data
+    networks:
+      - sentinel_net
+
+networks:
+  sentinel_net:
+    driver: bridge
+
+volumes:
+  pgdata:
+  neo4jdata:
+  neo4jlogs:
+  redisdata:

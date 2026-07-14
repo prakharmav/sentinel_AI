@@ -1,0 +1,59 @@
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL,GRAD,opsz@100..700,0..1,-50..200,20..48&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+    background-color: #010101; /* Level 0: Pure Obsidian */
+    color: theme('colors.on-background');
+    -webkit-tap-highlight-color: transparent;
+}
+
+.glass-panel-level-1 {
+    background-color: #1C1C1E; /* Level 1: Dark Graphite */
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+}
+
+.glass-panel-level-2 {
+    background-color: rgba(28, 28, 30, 0.8); /* Level 2: Dark Graphite with blur */
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.ai-summary-border {
+    position: relative;
+    background: linear-gradient(#1C1C1E, #1C1C1E) padding-box,
+                linear-gradient(to right, theme('colors.primary'), #30D5C8) border-box;
+    border: 1px solid transparent;
+}
+
+/* Gauge styles */
+.gauge-container {
+    width: 200px;
+    height: 100px;
+    position: relative;
+    overflow: hidden;
+}
+.gauge-background, .gauge-progress {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    box-sizing: border-box;
+    border: 16px solid theme('colors.surface-container-high');
+    border-bottom-color: transparent !important;
+    border-right-color: transparent !important;
+    transform: rotate(45deg);
+}
+.gauge-progress {
+    border-color: theme('colors.tertiary-container');
+    transform: rotate(115deg); /* Score 78/100 */
+    transition: transform 1s ease-out;
+}
+.pb-safe { padding-bottom: env(safe-area-inset-bottom, 20px); }

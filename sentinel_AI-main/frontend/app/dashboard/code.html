@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<title>SentinelAI Command Center</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "inverse-primary": "#005db8",
+                        "primary": "#aac7ff",
+                        "surface-dim": "#10131b",
+                        "on-secondary-fixed": "#1a1b1f",
+                        "primary-fixed-dim": "#aac7ff",
+                        "error-container": "#93000a",
+                        "surface-container-low": "#181c23",
+                        "primary-fixed": "#d6e3ff",
+                        "on-tertiary-container": "#4a1b00",
+                        "secondary-fixed-dim": "#c6c6cb",
+                        "on-tertiary-fixed-variant": "#793100",
+                        "tertiary-container": "#eb6a12",
+                        "on-secondary-fixed-variant": "#46464b",
+                        "error": "#ffb4ab",
+                        "surface-container-high": "#262a32",
+                        "on-primary-fixed": "#001b3e",
+                        "tertiary-fixed": "#ffdbcb",
+                        "inverse-on-surface": "#2d3038",
+                        "on-primary": "#003064",
+                        "tertiary-fixed-dim": "#ffb691",
+                        "surface-variant": "#31353d",
+                        "on-primary-container": "#002957",
+                        "on-secondary": "#2f3034",
+                        "background": "#10131b",
+                        "on-surface-variant": "#c0c6d6",
+                        "surface-bright": "#363941",
+                        "surface-tint": "#aac7ff",
+                        "surface-container": "#1c2027",
+                        "primary-container": "#3e90ff",
+                        "on-background": "#e0e2ed",
+                        "outline": "#8b91a0",
+                        "on-error": "#690005",
+                        "surface-container-highest": "#31353d",
+                        "secondary": "#c6c6cb",
+                        "outline-variant": "#414754",
+                        "inverse-surface": "#e0e2ed",
+                        "on-tertiary": "#552000",
+                        "on-secondary-container": "#b5b4ba",
+                        "secondary-container": "#46464b",
+                        "surface": "#10131b",
+                        "on-error-container": "#ffdad6",
+                        "on-tertiary-fixed": "#341100",
+                        "on-primary-fixed-variant": "#00468d",
+                        "tertiary": "#ffb691",
+                        "surface-container-lowest": "#0b0e15",
+                        "on-surface": "#e0e2ed",
+                        "secondary-fixed": "#e3e2e7"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin": "24px",
+                        "2xl": "48px",
+                        "gutter": "16px",
+                        "xl": "32px",
+                        "md": "16px",
+                        "sm": "8px",
+                        "3xl": "64px",
+                        "lg": "24px",
+                        "base": "4px",
+                        "xs": "4px"
+                    },
+                    "fontFamily": {
+                        "label-md": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "body-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "headline-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "500" }],
+                        "label-sm": ["11px", { "lineHeight": "14px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "headline-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: #010101; /* Level 0: Pure Obsidian */
+            color: theme('colors.on-background');
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        .glass-panel-level-1 {
+            background-color: #1C1C1E; /* Level 1: Dark Graphite */
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+
+        .glass-panel-level-2 {
+            background-color: rgba(28, 28, 30, 0.8); /* Level 2: Dark Graphite with blur */
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+        }
+        
+        .ai-summary-border {
+            position: relative;
+            background: linear-gradient(#1C1C1E, #1C1C1E) padding-box,
+                        linear-gradient(to right, theme('colors.primary'), #30D5C8) border-box;
+            border: 1px solid transparent;
+        }
+
+        /* Gauge styles */
+        .gauge-container {
+            width: 200px;
+            height: 100px;
+            position: relative;
+            overflow: hidden;
+        }
+        .gauge-background, .gauge-progress {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            box-sizing: border-box;
+            border: 16px solid theme('colors.surface-container-high');
+            border-bottom-color: transparent !important;
+            border-right-color: transparent !important;
+            transform: rotate(45deg);
+        }
+        .gauge-progress {
+            border-color: theme('colors.tertiary-container');
+            transform: rotate(115deg); /* Score 78/100 */
+            transition: transform 1s ease-out;
+        }
+        .pb-safe { padding-bottom: env(safe-area-inset-bottom, 20px); }
+    </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col pt-16 pb-24">
+<!-- TopAppBar -->
+<header class="bg-surface-dim/80 dark:bg-surface-dim/80 backdrop-blur-xl text-primary font-headline-md text-headline-md fixed top-0 w-full z-50 shadow-2xl flex justify-between items-center px-lg h-16 w-full">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary" data-icon="search" data-weight="fill" style="font-variation-settings: 'FILL' 0;">search</span>
+</div>
+<div class="flex items-center gap-sm">
+<img alt="SentinelAI" class="h-8 w-8 object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCW8IFVxIne0fq-u40TV0KjAun7GLntgapLRUSc1Qf2PkeyB4q8kJ-wPaaPk7yq8OVlov2o3fnbtZ6Oe4UTHPCKylvK5rQGKsHr5R2qj0AlC0xnWlOtvURkgs2XQyiz33ARm5qdLgBwRR8-lSAjeDTUuFmQEz6cQYu5SRT9fCiN-RSKr5qPGdPWrxUYaeS2YLWOuVJy53YvWUrzD_5we5mWH9e66PQ9Hmg0mAz1E2lOA9eY2RY-pjWAGS60-2Wqku1E7bVcyk2k2jI"/>
+<h1 class="font-headline-md text-headline-md font-bold text-primary tracking-tight">SentinelAI</h1>
+</div>
+<button class="flex items-center text-on-surface-variant hover:bg-white/5 transition-colors p-xs rounded-full focus-within:ring-2 focus-within:ring-primary">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+</button>
+</header>
+<!-- Main Content -->
+<main class="flex-1 px-md py-md flex flex-col gap-lg max-w-md mx-auto w-full">
+<!-- Live Risk Score Gauge -->
+<section class="flex flex-col items-center justify-center pt-md pb-sm">
+<h2 class="font-label-md text-label-md text-on-surface-variant uppercase tracking-widest mb-md">Live Risk Score</h2>
+<div class="gauge-container mb-sm">
+<div class="gauge-background"></div>
+<div class="gauge-progress" style="box-shadow: 0 0 20px theme('colors.tertiary-container')"></div>
+<div class="absolute bottom-0 w-full text-center flex flex-col items-center">
+<span class="font-display-lg text-display-lg text-on-surface">78</span>
+</div>
+</div>
+<div class="bg-tertiary-container/10 border border-tertiary-container/30 rounded-full px-md py-xs mt-xs">
+<span class="font-label-md text-label-md text-tertiary-container">Elevated Risk</span>
+</div>
+</section>
+<!-- AI Summary Card -->
+<section class="ai-summary-border rounded-xl p-md glass-panel-level-2">
+<div class="flex items-start gap-sm mb-sm">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">smart_toy</span>
+<h3 class="font-headline-md text-headline-md text-primary">SentinelAI Intelligence</h3>
+</div>
+<p class="font-body-md text-body-md text-on-surface">
+<strong class="text-white">3 High-Priority Fraud alerts</strong> detected in Sector 7. Predictive models suggest 15% increase in digital scams today.
+            </p>
+</section>
+<!-- Real-time Heatmap -->
+<section class="flex flex-col gap-sm">
+<div class="flex justify-between items-end">
+<h2 class="font-headline-md text-headline-md text-on-surface">Real-time Heatmap</h2>
+<button class="font-label-sm text-label-sm text-primary uppercase">Filters</button>
+</div>
+<div class="glass-panel-level-1 rounded-xl h-48 relative overflow-hidden flex items-center justify-center">
+<div class="bg-cover bg-center w-full h-full opacity-60 mix-blend-screen absolute inset-0" data-alt="A highly detailed, stylized digital map of a modern metropolitan sector in dark mode. The map shows intricate street grids in subtle grays and deep blacks. Glowing, vibrant high-tech data nodes in Primary Blue and Cyber Teal highlight active zones. The scene has a cinematic, high-stakes command center aesthetic with slight glassmorphism blur effects over the map layers." data-location="Sector 7" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCuzaLu-nG-ZLuDIqvhs1N9QSjLFjLuQZW-fiwkyioxaN8NmRe8Q3KNdBRTf3RQ40fmqdlmVz6-oUDMzNzKSyObGGG-dRg8sfUcJPS5BlP8wSPi38CCe8CvZC_5L04kKnmV2CmLsSuSC-KSei8OJ1u1d4pIwXdco5PCy1wb5KQEt7N_YTiXVWZnkbnA1UqHtb_C1daOO7y047ISlnla9svs8SurZbGZ1FjVU6rtmXTOAmIH0SxxhaMZ8TikDPOfWwAnrlRMjOlcGQY')"></div>
+<!-- Simulated Map UI Overlay -->
+<div class="absolute inset-0 p-sm pointer-events-none">
+<div class="absolute top-1/4 left-1/3 w-3 h-3 bg-error rounded-full animate-ping opacity-75"></div>
+<div class="absolute top-1/4 left-1/3 w-3 h-3 bg-error rounded-full"></div>
+<div class="absolute bottom-1/3 right-1/4 w-2 h-2 bg-tertiary-container rounded-full animate-ping opacity-75" style="animation-delay: 0.5s"></div>
+<div class="absolute bottom-1/3 right-1/4 w-2 h-2 bg-tertiary-container rounded-full"></div>
+<div class="absolute top-1/2 left-1/2 w-4 h-4 bg-primary rounded-full animate-pulse opacity-50 shadow-[0_0_15px_theme('colors.primary')]"></div>
+</div>
+<div class="absolute bottom-sm right-sm bg-surface-container-highest/80 backdrop-blur rounded px-sm py-xs border border-white/10">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Live feed active</span>
+</div>
+</div>
+</section>
+<!-- Urgent Alerts -->
+<section class="flex flex-col gap-sm">
+<div class="flex justify-between items-end mb-xs">
+<h2 class="font-headline-md text-headline-md text-on-surface flex items-center gap-xs">
+<span class="material-symbols-outlined text-error" style="font-variation-settings: 'FILL' 1;">warning</span>
+                    Urgent Alerts
+                </h2>
+<span class="bg-error/20 text-error font-label-sm text-label-sm px-2 py-1 rounded-full">2 Active</span>
+</div>
+<!-- Alert 1 -->
+<div class="glass-panel-level-1 rounded-xl p-md flex flex-col gap-sm hover:border-white/20 transition-colors cursor-pointer group">
+<div class="flex justify-between items-start">
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="security">security</span>
+<span class="font-label-md text-label-md text-on-surface-variant uppercase">Crime</span>
+</div>
+<span class="bg-error/10 text-error font-label-sm text-label-sm px-2 py-1 rounded border border-error/20">Severity: High</span>
+</div>
+<p class="font-body-lg text-body-lg text-on-surface font-medium">Armed Robbery in Progress - Downtown</p>
+<div class="flex justify-between items-center mt-xs">
+<span class="font-label-sm text-label-sm text-on-surface-variant">2 mins ago</span>
+<button class="font-label-sm text-label-sm text-primary group-hover:text-primary-container transition-colors">View Details</button>
+</div>
+</div>
+<!-- Alert 2 -->
+<div class="glass-panel-level-1 rounded-xl p-md flex flex-col gap-sm hover:border-white/20 transition-colors cursor-pointer group">
+<div class="flex justify-between items-start">
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="payments">payments</span>
+<span class="font-label-md text-label-md text-on-surface-variant uppercase">Fraud</span>
+</div>
+<span class="bg-error-container/20 text-error font-label-sm text-label-sm px-2 py-1 rounded border border-error-container/30">Severity: Critical</span>
+</div>
+<p class="font-body-lg text-body-lg text-on-surface font-medium">Digital Arrest Scam Wave detected <span class="text-on-surface-variant font-normal">(12 reports)</span></p>
+<div class="flex justify-between items-center mt-xs">
+<span class="font-label-sm text-label-sm text-on-surface-variant">15 mins ago</span>
+<button class="font-label-sm text-label-sm text-primary group-hover:text-primary-container transition-colors">View Details</button>
+</div>
+</div>
+</section>
+<div class="h-8"></div> <!-- Spacer for scrolling -->
+</main>
+<!-- BottomNavBar -->
+<nav class="bg-surface-container-highest/90 dark:bg-surface-container-highest/90 backdrop-blur-2xl text-primary font-label-sm-mobile text-label-sm-mobile fixed bottom-0 w-full rounded-t-xl z-50 fixed bottom-0 left-0 w-full flex justify-around items-center px-md py-sm pb-safe lg:hidden shadow-[0_-10px_40px_rgba(0,0,0,0.4)]">
+<button class="flex flex-col items-center justify-center text-primary bg-primary/10 rounded-xl px-4 py-1 active:scale-95 transition-transform">
+<span class="material-symbols-outlined mb-1" data-icon="dashboard" data-weight="fill" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+<span class="font-label-sm text-label-sm">Dashboard</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant active:scale-95 transition-transform">
+<span class="material-symbols-outlined mb-1" data-icon="troubleshoot">troubleshoot</span>
+<span class="font-label-sm text-label-sm">Investigation</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant active:scale-95 transition-transform relative">
+<span class="material-symbols-outlined mb-1" data-icon="notifications">notifications</span>
+<span class="absolute top-0 right-2 w-2 h-2 bg-error rounded-full"></span>
+<span class="font-label-sm text-label-sm">Alerts</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant active:scale-95 transition-transform">
+<span class="material-symbols-outlined mb-1" data-icon="person">person</span>
+<span class="font-label-sm text-label-sm">Profile</span>
+</button>
+</nav>
+<script>
+        // Simple script to handle bottom nav active state visual feedback
+        document.querySelectorAll('nav button').forEach(btn => {
+            btn.addEventListener('touchstart', function() {
+                if ('vibrate' in navigator) {
+                    navigator.vibrate(50);
+                }
+            });
+        });
+    </script>
+</body></html>

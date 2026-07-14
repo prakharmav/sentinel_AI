@@ -1,0 +1,11 @@
+id,account_masked,bank_name,holder_name,ifsc,is_mule,mule_confidence
+dee4b378-0129-4588-8513-0a153be0125e,Canara Bank XXXX7951,State Bank of India,Suresh Acharya,CNRB0001066,False,0.77
+a43afef3-c43d-4677-9e05-d46a282d3d5e,Canara Bank XXXX3947,Karnataka Bank,Ramesh Hegde,CNRB0001013,True,0.61
+1939e49b-a872-43d1-a363-63d313865c04,Canara Bank XXXX5343,Canara Bank,Ganesh Murthy,CNRB0001018,True,0.64
+7037da50-9e31-4575-8e6c-ac385232b1e8,Canara Bank XXXX2428,Karnataka Bank,Sandhya Nayar,CNRB0001051,False,0.85
+02fb485e-0dcd-4d90-aae3-3eb05a4054a2,Canara Bank XXXX6517,Karnataka Bank,Riya Shetty,CNRB0001064,True,0.89
+c6dbd3e5-542f-4439-81c3-4ec49c0bf7bb,Canara Bank XXXX6406,Karnataka Bank,Sunitha Murthy,CNRB0001064,True,0.71
+d109ffb0-8535-4e8f-82b7-5f8e322115e6,Canara Bank XXXX1741,HDFC Bank,Sandhya Nayar,CNRB0001059,True,0.63
+a6003e7b-6b8c-4030-b182-de51ee668b68,Canara Bank XXXX4181,Canara Bank,Priya Hegde,CNRB0001016,False,0.79
+55040315-7355-4eff-bfe4-b14ec1d9d033,Canara Bank XXXX8914,State Bank of India,Sunitha Bhat,CNRB0001019,False,0.78
+e0313e0f-de53-4499-ba31-5cf5ce51fab6,Canara Bank XXXX8484,State Bank of India,Ganesh Patil,CNRB0001013,True,0.82

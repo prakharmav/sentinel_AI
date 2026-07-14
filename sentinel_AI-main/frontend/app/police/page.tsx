@@ -1,0 +1,248 @@
+"use client";
+
+import React, { useState, useEffect } from 'react';
+
+export default function Page() {
+  return (
+    <>
+      
+<nav className="bg-surface-container-low dark:bg-surface-container-low h-full w-72 shadow-lg fixed left-0 top-0 z-40 hidden lg:flex flex-col border-r border-white/5">
+<div className="p-lg border-b border-white/5 flex items-center gap-md">
+<img className="h-8 w-8 object-contain" data-alt="SentinelAI Logo, a modern, geometric shield or eye emblem in glowing cyan and blue, representing high-tech public safety and surveillance on a dark background." src="https://lh3.googleusercontent.com/aida/AP1WRLv67_2O2MR-fghddOPjWKZFRzKIn-08szMNf3Ejmr26iPNa4f__pIooMK0dQ2mRFJN1J9aA98AAv8Q3TfafisDJHNHuFV7Ei4s0FvllEkKktIkGguVph99a735rb-AeDuFNDiNTi6YWtZ6ZWKVvnQ01FEVSfuHbw5FRO3TCKbxPDLgumrFEwT4dxxAIwBiCqoM6xdSG-Bv8laVJYn7ik6brxqDG70Meyahscw18bHjs2aCTxHa589YrgvQ"/>
+<div className="font-headline-md text-headline-md font-bold text-primary">SentinelAI</div>
+</div>
+<div className="p-md flex items-center gap-md border-b border-white/5">
+<div className="h-10 w-10 rounded-full bg-surface-variant flex items-center justify-center overflow-hidden">
+<span className="material-symbols-outlined text-on-surface-variant">person</span>
+</div>
+<div>
+<div className="font-label-md text-label-md text-on-surface">Command Center</div>
+<div className="font-label-sm text-label-sm text-on-surface-variant">Sector 7-G • Active</div>
+</div>
+</div>
+<div className="flex-1 py-md px-sm space-y-sm">
+<a className="flex items-center gap-md px-md py-sm rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-white/5 transition-all duration-200" href="#">
+<span className="material-symbols-outlined">security</span>
+<span className="font-label-md text-label-md">Crime</span>
+</a>
+<a className="flex items-center gap-md px-md py-sm rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-white/5 transition-all duration-200" href="#">
+<span className="material-symbols-outlined">payments</span>
+<span className="font-label-md text-label-md">Fraud</span>
+</a>
+<a className="flex items-center gap-md px-md py-sm rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-white/5 transition-all duration-200" href="#">
+<span className="material-symbols-outlined">hub</span>
+<span className="font-label-md text-label-md">Network</span>
+</a>
+<a className="flex items-center gap-md px-md py-sm rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-white/5 transition-all duration-200 mt-auto" href="#">
+<span className="material-symbols-outlined">settings</span>
+<span className="font-label-md text-label-md">Settings</span>
+</a>
+</div>
+</nav>
+<div className="lg:pl-72 flex flex-col min-h-screen">
+<header className="bg-surface-dim/80 dark:bg-surface-dim/80 backdrop-blur-xl shadow-2xl border-b border-white/10 fixed top-0 w-full lg:w-[calc(100%-18rem)] z-50">
+<div className="flex justify-between items-center px-lg h-16 w-full">
+<div className="flex items-center gap-md w-full max-w-md">
+<span className="material-symbols-outlined text-primary">search</span>
+<input className="bg-transparent border-none focus:ring-0 text-on-surface w-full font-body-md placeholder-on-surface-variant/50" placeholder="Global Search (FIR, Suspect, Alert ID)..." type="text"/>
+</div>
+<div className="flex items-center gap-lg">
+<button className="relative hover:bg-white/5 p-sm rounded-full transition-colors focus-within:ring-2 focus-within:ring-primary">
+<span className="material-symbols-outlined text-on-surface-variant">notifications</span>
+<span className="absolute top-1 right-1 h-2 w-2 rounded-full bg-error"></span>
+</button>
+<button className="hover:bg-white/5 p-sm rounded-full transition-colors focus-within:ring-2 focus-within:ring-primary">
+<span className="material-symbols-outlined text-primary">account_circle</span>
+</button>
+</div>
+</div>
+</header>
+<main className="flex-1 p-md lg:p-margin mt-16 pb-24 lg:pb-margin space-y-gutter">
+<div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-md gap-sm">
+<h1 className="font-headline-lg-mobile lg:font-headline-lg text-headline-lg-mobile lg:text-headline-lg text-on-surface">Overview</h1>
+<div className="flex gap-sm">
+<button className="px-md py-sm bg-primary/10 border border-primary/20 text-primary font-label-md text-label-md rounded-lg hover:bg-primary/20 transition-colors flex items-center gap-xs">
+<span className="material-symbols-outlined text-[18px]">add</span> New FIR
+                    </button>
+<button className="px-md py-sm bg-primary-container text-on-primary-container font-label-md text-label-md rounded-lg hover:shadow-[0_0_15px_rgba(62,144,255,0.4)] transition-all flex items-center gap-xs">
+<span className="material-symbols-outlined text-[18px]">directions_car</span> Deploy Unit
+                    </button>
+</div>
+</div>
+<div className="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<div className="glass-panel glass-panel-interactive p-md flex flex-col justify-between">
+<div className="flex justify-between items-start">
+<span className="font-label-md text-label-md text-on-surface-variant">Today's FIRs</span>
+<span className="material-symbols-outlined text-outline">description</span>
+</div>
+<div className="mt-md">
+<span className="font-display-lg text-display-lg text-on-surface">142</span>
+<span className="font-label-sm text-label-sm text-tertiary ml-sm flex items-center inline-flex">
+<span className="material-symbols-outlined text-[14px]">arrow_upward</span> 12%
+                        </span>
+</div>
+</div>
+<div className="glass-panel glass-panel-interactive p-md flex flex-col justify-between">
+<div className="flex justify-between items-start">
+<span className="font-label-md text-label-md text-on-surface-variant">Active Investigations</span>
+<span className="material-symbols-outlined text-outline">troubleshoot</span>
+</div>
+<div className="mt-md">
+<span className="font-display-lg text-display-lg text-on-surface">87</span>
+<span className="font-label-sm text-label-sm text-primary ml-sm flex items-center inline-flex">
+<span className="material-symbols-outlined text-[14px]">arrow_downward</span> 3%
+                        </span>
+</div>
+</div>
+<div className="glass-panel glass-panel-interactive p-md flex flex-col justify-between relative overflow-hidden">
+<div className="absolute inset-0 bg-error/5 z-0"></div>
+<div className="flex justify-between items-start z-10">
+<span className="font-label-md text-label-md text-on-surface-variant">Pending Alerts</span>
+<span className="material-symbols-outlined text-error">warning</span>
+</div>
+<div className="mt-md z-10">
+<span className="font-display-lg text-display-lg text-error">24</span>
+<span className="font-label-sm text-label-sm text-on-surface-variant ml-sm">12 High Priority</span>
+</div>
+</div>
+</div>
+<div className="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<div className="lg:col-span-8 glass-panel p-md flex flex-col min-h-[400px]">
+<div className="flex justify-between items-center mb-md">
+<h2 className="font-headline-md text-headline-md text-on-surface">Real-time Crime Heatmap</h2>
+<button className="text-on-surface-variant hover:text-on-surface"><span className="material-symbols-outlined">more_horiz</span></button>
+</div>
+<div className="flex-1 bg-surface-variant/30 rounded-lg relative overflow-hidden flex items-center justify-center border border-white/5">
+<div className="absolute inset-0 bg-cover bg-center opacity-60 mix-blend-screen" data-alt="A highly detailed, stylized digital map of a sprawling modern metropolis at night. The map interface uses a dark mode aesthetic with deep obsidian oceans and charcoal landmasses. Glowing neon heat signatures in cyber-teal, electric blue, and intense crimson red indicate areas of high activity. The visual style is reminiscent of advanced military or sci-fi command center intelligence interfaces." style={{backgroundImage: "url('https://lh3.googleusercontent.com/aida-public/AB6AXuBnW77c3wBAnraZUa2Uimch9im3PuJJE-R7hkUaRxChexI8PjTqoF8z4W9mIC5AdgUhVWcS0Vr7C7M3_u-gdRAfYTHyyeMpXQNAxP2UulB4c5nqNqlWKP187q2RP741IBXV7ovdFHkOut62Xl8CZXnF5b7CaMkGoW5r0bcZq1vifHQPPmAYifIIkqdcitRlhAB4tATmEYtfPiSous1C4NfdVgSCuBNLOL06zw9G36_9WI4DcV-1vho4AKVxqbZAoCu-EZoxOThef1U')"}}></div>
+<div className="absolute top-1/4 left-1/3 w-12 h-12 bg-error/20 rounded-full animate-ping"></div>
+<div className="absolute top-1/4 left-1/3 w-3 h-3 bg-error rounded-full shadow-[0_0_10px_#ffb4ab]"></div>
+<div className="absolute bottom-1/3 right-1/4 w-16 h-16 bg-tertiary/20 rounded-full animate-ping" style={{animationDelay: "1s"}}></div>
+<div className="absolute bottom-1/3 right-1/4 w-4 h-4 bg-tertiary rounded-full shadow-[0_0_10px_#ffb691]"></div>
+</div>
+</div>
+<div className="lg:col-span-4 ai-gradient-border h-[400px] flex flex-col">
+<div className="ai-inner-surface flex-1 flex flex-col p-md">
+<div className="flex items-center gap-sm mb-md border-b border-white/10 pb-sm">
+<span className="material-symbols-outlined text-tertiary">smart_toy</span>
+<h2 className="font-headline-md text-headline-md text-on-surface">SentinelAI Agent</h2>
+</div>
+<div className="flex-1 overflow-y-auto space-y-md pr-sm mb-md">
+<div className="flex flex-col gap-xs">
+<div className="bg-surface-variant/50 p-sm rounded-lg rounded-tl-none self-start max-w-[85%] border border-white/5">
+<p className="font-body-md text-body-md text-on-surface">Unusual activity detected in Sector 4. Multiple reports of vandalism aligning with previous syndicate patterns.</p>
+</div>
+<span className="font-label-sm text-label-sm text-on-surface-variant ml-sm">10:42 AM</span>
+</div>
+<div className="flex flex-col gap-xs items-end">
+<div className="bg-primary-container/20 p-sm rounded-lg rounded-tr-none self-end max-w-[85%] border border-primary/20">
+<p className="font-body-md text-body-md text-on-surface">Cross-reference suspects with FIRs from last month.</p>
+</div>
+</div>
+<div className="flex flex-col gap-xs">
+<div className="bg-surface-variant/50 p-sm rounded-lg rounded-tl-none self-start max-w-[85%] border border-tertiary/30 shadow-[0_0_10px_rgba(255,182,145,0.1)]">
+<p className="font-body-md text-body-md text-on-surface flex items-center gap-sm">
+<span className="material-symbols-outlined text-[16px] text-tertiary animate-spin">sync</span> Analyzing...
+                                    </p>
+</div>
+</div>
+</div>
+<div className="relative mt-auto">
+<input className="w-full bg-surface-container-highest border border-white/10 rounded-full py-sm pl-md pr-10 text-on-surface font-body-md focus:ring-1 focus:ring-primary focus:border-primary placeholder-on-surface-variant/50" placeholder="Ask SentinelAI..." type="text"/>
+<button className="absolute right-2 top-1/2 -translate-y-1/2 text-primary p-xs hover:bg-white/5 rounded-full">
+<span className="material-symbols-outlined text-[20px]">send</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
+<div className="glass-panel p-md lg:col-span-1 flex flex-col">
+<div className="flex justify-between items-center mb-md border-b border-white/5 pb-xs">
+<h3 className="font-headline-md text-headline-md text-on-surface">Recent Alerts</h3>
+</div>
+<div className="space-y-sm flex-1">
+<div className="flex items-start gap-sm p-sm hover:bg-white/5 rounded-lg transition-colors cursor-pointer border border-transparent hover:border-white/5">
+<div className="mt-1 w-2 h-2 rounded-full bg-error flex-shrink-0 shadow-[0_0_8px_#ffb4ab]"></div>
+<div>
+<div className="font-label-md text-label-md text-on-surface">Unauthorized Access Attempt</div>
+<div className="font-body-md text-body-md text-on-surface-variant text-sm truncate w-48">Substation Alpha, North Grid</div>
+</div>
+<div className="ml-auto font-label-sm text-label-sm text-on-surface-variant">2m ago</div>
+</div>
+<div className="flex items-start gap-sm p-sm hover:bg-white/5 rounded-lg transition-colors cursor-pointer border border-transparent hover:border-white/5">
+<div className="mt-1 w-2 h-2 rounded-full bg-tertiary flex-shrink-0"></div>
+<div>
+<div className="font-label-md text-label-md text-on-surface">Suspicious Vehicle Cluster</div>
+<div className="font-body-md text-body-md text-on-surface-variant text-sm truncate w-48">Downtown Financial District</div>
+</div>
+<div className="ml-auto font-label-sm text-label-sm text-on-surface-variant">15m ago</div>
+</div>
+<div className="flex items-start gap-sm p-sm hover:bg-white/5 rounded-lg transition-colors cursor-pointer border border-transparent hover:border-white/5">
+<div className="mt-1 w-2 h-2 rounded-full bg-primary flex-shrink-0"></div>
+<div>
+<div className="font-label-md text-label-md text-on-surface">Routine Patrol Deviation</div>
+<div className="font-body-md text-body-md text-on-surface-variant text-sm truncate w-48">Unit 42, Sector 9</div>
+</div>
+<div className="ml-auto font-label-sm text-label-sm text-on-surface-variant">1h ago</div>
+</div>
+</div>
+</div>
+<div className="glass-panel p-md lg:col-span-1 flex flex-col justify-center items-center relative overflow-hidden">
+<h3 className="font-headline-md text-headline-md text-on-surface absolute top-md left-md">Jurisdiction Risk Score</h3>
+<div className="relative w-40 h-40 mt-xl flex items-center justify-center">
+<svg className="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
+<circle cx="50" cy="50" fill="none" r="45" stroke="#31353d" stroke-dasharray="283" stroke-dashoffset="0" stroke-width="8"></circle>
+<circle className="transition-all duration-1000 ease-out drop-shadow-[0_0_8px_rgba(255,182,145,0.6)]" cx="50" cy="50" fill="none" r="45" stroke="#ffb691" stroke-dasharray="283" stroke-dashoffset="70" stroke-width="8"></circle>
+</svg>
+<div className="absolute inset-0 flex flex-col items-center justify-center">
+<span className="font-display-lg text-display-lg text-tertiary">78</span>
+<span className="font-label-sm text-label-sm text-on-surface-variant">ELEVATED</span>
+</div>
+</div>
+</div>
+<div className="glass-panel p-md lg:col-span-1 bg-surface-container flex flex-col">
+<h3 className="font-headline-md text-headline-md text-on-surface mb-md">Field Conditions</h3>
+<div className="flex items-center gap-md mb-md">
+<span className="material-symbols-outlined text-[48px] text-primary" style={{fontVariationSettings: "FILL' 1"}}>rainy</span>
+<div>
+<div className="font-display-lg text-display-lg text-on-surface leading-none">62°</div>
+<div className="font-label-md text-label-md text-on-surface-variant">Heavy Rain • Visibility Low</div>
+</div>
+</div>
+<div className="mt-auto space-y-sm">
+<div className="flex justify-between items-center bg-white/5 p-sm rounded-md">
+<span className="font-label-sm text-label-sm text-on-surface-variant">Traffic Congestion</span>
+<span className="font-label-sm text-label-sm text-error">Severe (Grid 4)</span>
+</div>
+<div className="flex justify-between items-center bg-white/5 p-sm rounded-md">
+<span className="font-label-sm text-label-sm text-on-surface-variant">Unit Response Time</span>
+<span className="font-label-sm text-label-sm text-tertiary">+4 mins avg</span>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+<nav className="bg-surface-container-highest/90 dark:bg-surface-container-highest/90 backdrop-blur-2xl fixed bottom-0 w-full rounded-t-xl z-50 border-t border-white/10 shadow-[0_-10px_40px_rgba(0,0,0,0.4)] fixed bottom-0 left-0 w-full flex justify-around items-center px-md py-sm pb-safe lg:hidden">
+<a className="flex flex-col items-center justify-center text-primary bg-primary/10 rounded-xl px-4 py-1 active:scale-95 transition-transform vibrate-on-touch" href="#">
+<span className="material-symbols-outlined">dashboard</span>
+<span className="font-label-sm-mobile text-label-sm-mobile mt-1">Dashboard</span>
+</a>
+<a className="flex flex-col items-center justify-center text-on-surface-variant active:scale-95 transition-transform vibrate-on-touch" href="#">
+<span className="material-symbols-outlined">troubleshoot</span>
+<span className="font-label-sm-mobile text-label-sm-mobile mt-1">Investigation</span>
+</a>
+<a className="flex flex-col items-center justify-center text-on-surface-variant active:scale-95 transition-transform vibrate-on-touch relative" href="#">
+<span className="material-symbols-outlined">notifications</span>
+<span className="absolute top-0 right-2 h-2 w-2 rounded-full bg-error"></span>
+<span className="font-label-sm-mobile text-label-sm-mobile mt-1">Alerts</span>
+</a>
+<a className="flex flex-col items-center justify-center text-on-surface-variant active:scale-95 transition-transform vibrate-on-touch" href="#">
+<span className="material-symbols-outlined">person</span>
+<span className="font-label-sm-mobile text-label-sm-mobile mt-1">Profile</span>
+</a>
+</nav>
+
+    </>
+  );
+}
