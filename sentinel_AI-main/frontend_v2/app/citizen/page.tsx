@@ -102,7 +102,7 @@ export default function CitizenPortalPage() {
                 One-click dispatch of cybersecurity response and local precinct dispatch alerts.
               </p>
             </div>
-            <SOSButton />
+            <SOSButton onTrigger={() => {}} />
             <span className="text-[10px] text-muted-foreground font-mono">
               Note: Triggering logs coordinates and telemetry details automatically
             </span>
