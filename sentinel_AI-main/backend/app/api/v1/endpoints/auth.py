@@ -187,3 +187,75 @@ async def refresh_token(
         )
     except Exception:
         raise HTTPException(status_code=401, detail="Invalid refresh token")
+
+
+# ── Demo Login (works without PostgreSQL) ──────────────────────────
+# Hardcoded demo users for local development when database is unavailable
+
+DEMO_USERS = {
+    "admin@sentinelai.io": {
+        "id": "00000000-0000-0000-0000-000000000040",
+        "name": "Admin User",
+        "email": "admin@sentinelai.io",
+        "role": "admin",
+        "password": "password",
+    },
+    "police@sentinelai.io": {
+        "id": "00000000-0000-0000-0000-000000000020",
+        "name": "Police Officer",
+        "email": "police@sentinelai.io",
+        "role": "officer",
+        "password": "password",
+    },
+    "investigator@sentinelai.io": {
+        "id": "00000000-0000-0000-0000-000000000030",
+        "name": "Lead Investigator",
+        "email": "investigator@sentinelai.io",
+        "role": "analyst",
+        "password": "password",
+    },
+    "citizen@sentinelai.io": {
+        "id": "00000000-0000-0000-0000-000000000010",
+        "name": "Citizen Reporter",
+        "email": "citizen@sentinelai.io",
+        "role": "citizen",
+        "password": "password",
+    },
+}
+
+
+@router.post("/demo-login")
+async def demo_login(payload: pydantic_schemas.LoginRequest):
+    """
+    Lightweight demo login that bypasses PostgreSQL and MFA.
+    Validates against hardcoded demo credentials and returns
+    a signed JWT + user profile for the frontend.
+    """
+    user_info = DEMO_USERS.get(payload.email)
+    if not user_info or user_info["password"] != payload.password:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Incorrect email or password",
+        )
+
+    permissions = ROLE_PERMISSIONS.get(user_info["role"].upper(), [])
+
+    access_token = auth.create_access_token(
+        data={
+            "sub": user_info["id"],
+            "tenant_id": "00000000-0000-0000-0000-000000000001",
+            "role": user_info["role"].upper(),
+            "permissions": permissions,
+        }
+    )
+
+    return {
+        "access_token": access_token,
+        "token_type": "Bearer",
+        "user": {
+            "id": user_info["id"],
+            "name": user_info["name"],
+            "email": user_info["email"],
+            "role": user_info["role"],
+        },
+    }

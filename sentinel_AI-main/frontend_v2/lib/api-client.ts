@@ -85,8 +85,18 @@ async function request<T>(
     } catch {
       errorData = { detail: response.statusText }
     }
-    const message =
-      (errorData as { detail?: string })?.detail ?? `HTTP ${response.status}`
+    // Extract a human-readable message from the error payload.
+    // FastAPI validation errors return detail as an array of objects,
+    // which would render as "[object Object]" if used directly.
+    const rawDetail = (errorData as { detail?: unknown })?.detail
+    let message: string
+    if (typeof rawDetail === 'string') {
+      message = rawDetail
+    } else if (Array.isArray(rawDetail)) {
+      message = rawDetail.map((e: { msg?: string }) => e.msg ?? JSON.stringify(e)).join('; ')
+    } else {
+      message = `HTTP ${response.status}`
+    }
     throw new ApiError(response.status, message, errorData)
   }
 
@@ -130,7 +140,7 @@ export interface LoginResponse {
 
 export const authApi = {
   login: (email: string, password: string) =>
-    apiClient.post<LoginResponse>('/api/v1/auth/login', { email, password }),
+    apiClient.post<LoginResponse>('/api/v1/auth/demo-login', { email, password }),
 
   logout: () =>
     apiClient.post<void>('/api/v1/auth/logout'),

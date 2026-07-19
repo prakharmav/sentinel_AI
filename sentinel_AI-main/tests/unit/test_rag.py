@@ -3,22 +3,24 @@ from unittest.mock import MagicMock
 
 # ── Dynamic Mocks for Headless Test Execution ──
 # Prevents ModuleNotFoundError on environments without full compilation dependencies
+try:
+    import pydantic
+    import pydantic_settings
+except ImportError:
+    class MockSettingsConfigDict(dict):
+        def __init__(self, *args, **kwargs):
+            super().__init__()
 
-class MockSettingsConfigDict(dict):
-    def __init__(self, *args, **kwargs):
-        super().__init__()
+    class MockBaseSettings:
+        def __init__(self, *args, **kwargs):
+            pass
 
-class MockBaseSettings:
-    def __init__(self, *args, **kwargs):
-        pass
+    mock_pydantic_settings = MagicMock()
+    mock_pydantic_settings.BaseSettings = MockBaseSettings
+    mock_pydantic_settings.SettingsConfigDict = MockSettingsConfigDict
 
-mock_pydantic_settings = MagicMock()
-mock_pydantic_settings.BaseSettings = MockBaseSettings
-mock_pydantic_settings.SettingsConfigDict = MockSettingsConfigDict
-
-sys.modules['pydantic'] = MagicMock()
-sys.modules['pydantic_settings'] = mock_pydantic_settings
-
+    sys.modules['pydantic'] = MagicMock()
+    sys.modules['pydantic_settings'] = mock_pydantic_settings
 # ── End of Dynamic Mocks ──
 
 import unittest
