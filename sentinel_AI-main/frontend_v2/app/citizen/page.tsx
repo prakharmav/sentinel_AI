@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "framer-motion"
 import {
   Shield, AlertOctagon, HelpCircle, PhoneCall, CheckCircle,
   Clock, Search, ShieldCheck, HelpCircle as HelpIcon, MapPin,
-  Mic, Send, ArrowRight
+  Mic, Send, ArrowRight, Loader2
 } from "lucide-react"
 
 // Layout Components
