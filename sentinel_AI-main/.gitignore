@@ -8,3 +8,9 @@ venv/
 dist/
 build/
 .DS_Store
+
+# Untracked obsolete docs
+walkthrough.md
+SentinelAI_Folder_Structure.md
+SentinelAI_MASTER_BRIEFING.md
+architect_review.md
