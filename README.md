@@ -75,7 +75,7 @@ To bridge the gap between complex unstructured intelligence (documents, reports,
 ## 🎬 Demo
 
 ### Live Demo
-[🌍 View Live Application](https://sentinelai-frontend-jjln.onrender.com)
+[🌍 View Live Application (Zoho Catalyst)](https://sentinel-frontend-50044368470.development.catalystappsail.in)
 
 ### Screenshots
 <details>
