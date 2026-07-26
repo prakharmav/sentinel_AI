@@ -75,7 +75,7 @@ To bridge the gap between complex unstructured intelligence (documents, reports,
 ## 🎬 Demo
 
 ### Live Demo
-[🌍 View Live Application](https://sentinel-ai-demo.vercel.app) *(Placeholder)*
+[🌍 View Live Application](https://sentinelai-frontend-jjln.onrender.com)
 
 ### Screenshots
 <details>
@@ -85,10 +85,10 @@ To bridge the gap between complex unstructured intelligence (documents, reports,
 </details>
 
 ### Video Demo
-[📺 Watch on YouTube](https://youtube.com) *(Placeholder)*
+[📺 Watch Demo Video](https://drive.google.com/file/d/1Tjym9L7hXiE1AiKCeD1dziZjcrsxxg1Q/view?usp=sharing)
 
 ### Architecture Diagram
-<img src="https://via.placeholder.com/800x400/0f172a/38bdf8?text=System+Architecture+Diagram" alt="Architecture Diagram">
+<img src="assets/architecture.png" alt="Sentinel AI Architecture Diagram" width="100%">
 
 ---
 
